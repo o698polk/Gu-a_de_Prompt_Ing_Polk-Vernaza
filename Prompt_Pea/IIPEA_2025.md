@@ -1,10 +1,10 @@
-*DESCRIPCION GENERAL -CHATGPT 5*
+*<h2 style="Color:red;"> DESCRIPCION GENERAL -CHATGPT 5</h2>*
 
 
 
 Usa estas variables en la descripción variables: 
 
-{Materia=<h2 style="Color:red"> Desarrollo de aplicaciones Web*</h2>* }, 
+{Materia= *Desarrollo de aplicaciones Web* }, 
 
 {HorasTeoriaPractica=*3*}, 
 
@@ -24,19 +24,19 @@ Usa estas variables en la descripción variables:
 
 
 
-*RESULTADO DE APRENDIZAJE-CHATGPT 5*
+*<h2 style="Color:red;">RESULTADO DE APRENDIZAJE-CHATGPT 5 </h2>*
 
 
 
-Variables Unidades=\[<h2 style="Color:red">
+Variables Unidades=\[
 
-1\.	INTRODUCCIÓN A LA WEB
+1\.	*INTRODUCCIÓN A LA WEB*
 
-2\.	GESTORES DE CONTENIDOS (CMS
+*2.	GESTORES DE CONTENIDOS (CMS*
 
-3\.	DESARROLLO FRONT-END]
+*3.	DESARROLLO FRONT-END]*
 
-</h2>
+
 
 Genera resultados de aprendizaje en formato de tabla con dos columnas(UNA TABLA PARA WORD) cuenta las unidades de ejemplo y con ese valor agregas los números de los tipo:
 
@@ -96,9 +96,9 @@ o	Actitudinal: inicia con algunos de los términos siguiente solo repite termino
 
 
 
-*BIBLIOGRAFIAS--CHATGPT 5*
+*<h2 style="Color:red;">BIBLIOGRAFIAS--CHATGPT 5 </h2>*
 
-“Busca libros y artículos científicos recientes (últimos 4 años) sobre \[<h2 style="Color:red">*tema Sistema de inventarios</h2>*].
+“Busca libros y artículos científicos recientes (últimos 4 años) sobre \[*tema Sistema de inventarios*].
 
 Prioriza fuentes académicas con DOI o URL permanentes (no enlaces rotos).
 
