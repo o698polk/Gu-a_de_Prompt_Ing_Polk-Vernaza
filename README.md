@@ -1,4 +1,4 @@
-# Guia_de_Prompt_Ing_Polk-Vernaza
+# Guia_de_Prompt_Ing_Polk_Vernaza_Istae
 Este repositorio recopila y organiza una serie de prompts optimizados para distintas aplicaciones de inteligencia artificial (ChatGPT, Cursor, Copilot, entre otros).
 Su objetivo es servir como referencia práctica para estudiantes, desarrolladores, docentes y creadores de contenido que deseen:
 
