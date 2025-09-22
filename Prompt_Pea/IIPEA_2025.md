@@ -1,10 +1,10 @@
-DESCRIPCION GENERAL -CHATGPT 5
+*DESCRIPCION GENERAL -CHATGPT 5*
 
 
 
 Usa estas variables en la descripción variables: 
 
-{Materia=<h2 style="Color:red"> *Desarrollo de aplicaciones Web</h2>* }, 
+{Materia=<h2 style="Color:red"> Desarrollo de aplicaciones Web*</h2>* }, 
 
 {HorasTeoriaPractica=*3*}, 
 
@@ -24,17 +24,17 @@ Usa estas variables en la descripción variables:
 
 
 
-PROMPT COMPLETO -CHATGPT 5
+*RESULTADO DE APRENDIZAJE-CHATGPT 5*
 
-Instrucciones:
+
 
 Variables Unidades=\[<h2 style="Color:red">
 
-*1.	INTRODUCCIÓN A LA WEB*
+1\.	INTRODUCCIÓN A LA WEB
 
-*2.	GESTORES DE CONTENIDOS (CMS*
+2\.	GESTORES DE CONTENIDOS (CMS
 
-*3.	DESARROLLO FRONT-END]*
+3\.	DESARROLLO FRONT-END]
 
 </h2>
 
@@ -96,7 +96,7 @@ o	Actitudinal: inicia con algunos de los términos siguiente solo repite termino
 
 
 
-BIBLIOGRAFIAS--CHATGPT 5
+*BIBLIOGRAFIAS--CHATGPT 5*
 
 “Busca libros y artículos científicos recientes (últimos 4 años) sobre \[<h2 style="Color:red">*tema Sistema de inventarios</h2>*].
 
