@@ -175,14 +175,6 @@ C. Tabla de verificación de enlaces
  
 
 
-*<h2 style="Color:red;">RESULTADO DE APRENDIZAJE-CHATGPT 5 </h2>*
-
-
-
-
-
-*<h2 style="Color:red;">BIBLIOGRAFIAS--CHATGPT 5 </h2>*
-
 
 
 
