@@ -1,0 +1,622 @@
+<!--
+Guía de Estudio - Archivo único y auto-contenido
+
+Cómo usar y editar:
+1) Para cambiar el tema, edite únicamente la variable `tema` en la PRIMERA línea del bloque <script> al final del documento.
+2) Para agregar un nuevo tema, añada una nueva entrada en el objeto `temasData` usando como clave el nombre exacto del tema. Luego, establezca `tema` a esa clave.
+3) Si `tema` no existe en `temasData`, se mostrará una plantilla editable con instrucciones y campos vacíos listos para completar.
+4) Para exportar a PDF: haga clic en "Exportar a PDF" (usa window.print()). Recomendación: Márgenes pequeños, escala 100%, encabezados y pies de página desactivados.
+
+Licencias y recursos:
+- Sin dependencias de pago. Solo CSS de Bootstrap y Bootstrap Icons por CDN.
+- Imágenes: SVG inline originales en este documento. Si necesita reemplazarlas por data-URL, reemplace el contenido del elemento <svg> o inserte un <img src="data:image/...">. 
+-->
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Guía de Estudio</title>
+	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+	<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<!-- Bootstrap 5 CSS (permitido por CDN) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<!-- Bootstrap Icons (permitido por CDN) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+	<style>
+		:root{
+			--bg: #f8f9fb;
+			--text: #1f2937;
+			--muted: #6b7280;
+			--primary: #0d6efd;
+			--card: #ffffff;
+			--border: #e5e7eb;
+		}
+		:root[data-theme="dark"]{
+			--bg: #0b0f17;
+			--text: #e5e7eb;
+			--muted: #9ca3af;
+			--primary: #4da3ff;
+			--card: #111827;
+			--border: #1f2937;
+		}
+		html{scroll-behavior:smooth}
+		body{
+			background: var(--bg);
+			color: var(--text);
+			font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+		}
+		a{color: var(--primary)}
+		.navbar{
+			background: rgba(255,255,255,0.7);
+			backdrop-filter: saturate(180%) blur(10px);
+			border-bottom: 1px solid var(--border);
+		}
+		:root[data-theme="dark"] .navbar{
+			background: rgba(17,24,39,0.6);
+		}
+		main{padding-top: 5rem}
+		section{padding: 3rem 0}
+		.section-heading{margin-bottom: 1rem}
+		.lead{color: var(--muted)}
+		.card{
+			border-color: var(--border);
+			background: var(--card);
+			box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+			transition: transform .2s ease, box-shadow .2s ease;
+		}
+		.card:hover{transform: translateY(-2px);box-shadow: 0 10px 24px rgba(0,0,0,0.08)}
+		.icon-badge{
+			width: 44px; height: 44px; display:inline-flex; align-items:center; justify-content:center;
+			border-radius: .75rem; background: rgba(13,110,253,.1); color: var(--primary); margin-right: .5rem;
+		}
+		.kbd{border:1px solid var(--border);background:var(--card);border-radius:.375rem;padding:.125rem .375rem}
+		/* Tooltips simples por CSS */
+		[data-tooltip]{position:relative}
+		[data-tooltip]::after{
+			content: attr(data-tooltip);
+			position:absolute; left:50%; transform:translateX(-50%);
+			bottom: calc(100% + .5rem);
+			background:#111827; color:#fff; white-space:nowrap; padding:.25rem .5rem; border-radius:.25rem; font-size:.75rem; opacity:0; pointer-events:none; transition:opacity .15s;
+		}
+		[data-tooltip]:hover::after,[data-tooltip]:focus::after{opacity:1}
+		/* Arrastrar y soltar */
+		.droppable{
+			border:2px dashed var(--border); border-radius:.5rem; padding:1rem; min-height:80px; background: rgba(125,125,125,.03);
+		}
+		.draggable{cursor:grab}
+		.draggable:active{cursor:grabbing}
+		.drop-ok{border-color:#198754; background: rgba(25,135,84,.08)}
+		.drop-bad{border-color:#dc3545; background: rgba(220,53,69,.08)}
+		/* Modal mínimo compatible con clases Bootstrap (sin JS externo) */
+		.modal{display:none}
+		.modal.show{display:block}
+		.modal-backdrop{position:fixed; inset:0; background:rgba(0,0,0,.5)}
+		/* Impresión / Exportación a PDF */
+		@media print{
+			@page{size: A4; margin: 12mm}
+			html{scroll-behavior:auto}
+			.navbar, .btn-print-hide, .modal, .modal-backdrop{display:none !important}
+			section{padding: 0 0 12mm 0}
+			.card{box-shadow:none; break-inside: avoid; page-break-inside: avoid}
+			.container{max-width: 100%}
+		}
+	</style>
+</head>
+<body>
+	<a href="#inicio" class="visually-hidden-focusable position-absolute top-0 start-0 m-2 p-2 bg-light rounded">Saltar al contenido</a>
+	<header>
+		<nav class="navbar navbar-expand-lg fixed-top" role="navigation" aria-label="Barra de navegación principal">
+			<div class="container">
+				<a class="navbar-brand d-flex align-items-center" href="#inicio">
+					<i class="bi bi-mortarboard-fill me-2" aria-hidden="true"></i>
+					<span class="fw-semibold">Guía de Estudio</span>
+				</a>
+				<button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Alternar navegación" data-tooltip="Menú">
+					<i class="bi bi-list"></i>
+				</button>
+				<div class="collapse navbar-collapse show" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+						<li class="nav-item"><a class="nav-link" href="#objetivos">Objetivos</a></li>
+						<li class="nav-item"><a class="nav-link" href="#contenido">Contenido</a></li>
+						<li class="nav-item"><a class="nav-link" href="#actividades">Actividades</a></li>
+						<li class="nav-item"><a class="nav-link" href="#referencias">Referencias</a></li>
+					</ul>
+					<div class="d-flex gap-2">
+						<button id="btnTema" class="btn btn-outline-secondary btn-sm" type="button" aria-pressed="false" aria-label="Alternar modo claro/oscuro"><i class="bi bi-moon-stars"></i></button>
+						<button id="btnInstrucciones" class="btn btn-outline-primary btn-sm" type="button" aria-haspopup="dialog" aria-controls="modalInstrucciones">Instrucciones</button>
+						<button id="btnPDF" class="btn btn-primary btn-sm" type="button">Exportar a PDF</button>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main class="container">
+		<section id="inicio" aria-labelledby="titulo-inicio">
+			<div class="row align-items-center g-4">
+				<div class="col-lg-6">
+					<h1 id="titulo-inicio" class="display-5 fw-bold"></h1>
+					<p class="lead" id="subtitulo-inicio"></p>
+					<p id="intro-inicio"></p>
+				</div>
+				<div class="col-lg-6">
+					<div class="card p-3" aria-hidden="true">
+						<!-- Imagen SVG inline: Ilustración de red (original) -->
+						<!-- Atribución: SVG original creado para este documento. Inspirado en conceptos de topología de red. -->
+						<svg viewBox="0 0 600 300" width="100%" height="auto" role="img" aria-label="Ilustración de nodos conectados">
+							<defs>
+								<linearGradient id="g1" x1="0" x2="1">
+									<stop offset="0%" stop-color="#0d6efd"/>
+									<stop offset="100%" stop-color="#60a5fa"/>
+								</linearGradient>
+								<filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+									<feGaussianBlur stdDeviation="2"/>
+								</filter>
+							</defs>
+							<rect x="0" y="0" width="600" height="300" fill="url(#g1)" opacity="0.08"/>
+							<g stroke="#0d6efd" stroke-width="3" stroke-linecap="round">
+								<line x1="80" y1="150" x2="220" y2="70" opacity=".6"/>
+								<line x1="220" y1="70" x2="380" y2="90" opacity=".6"/>
+								<line x1="380" y1="90" x2="520" y2="150" opacity=".6"/>
+								<line x1="220" y1="70" x2="220" y2="230" opacity=".3"/>
+								<line x1="380" y1="90" x2="380" y2="230" opacity=".3"/>
+							</g>
+							<g fill="#0d6efd">
+								<circle cx="80" cy="150" r="16" filter="url(#soft)"/>
+								<circle cx="220" cy="70" r="16" filter="url(#soft)"/>
+								<circle cx="380" cy="90" r="16" filter="url(#soft)"/>
+								<circle cx="520" cy="150" r="16" filter="url(#soft)"/>
+								<circle cx="220" cy="230" r="16" filter="url(#soft)"/>
+								<circle cx="380" cy="230" r="16" filter="url(#soft)"/>
+							</g>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="objetivos" aria-labelledby="titulo-objetivos">
+			<h2 id="titulo-objetivos" class="section-heading">Objetivos del tema</h2>
+			<div id="lista-objetivos" class="row g-3"></div>
+		</section>
+
+		<section id="contenido" aria-labelledby="titulo-contenido">
+			<h2 id="titulo-contenido" class="section-heading">Contenido teórico</h2>
+			<div id="bloques-contenido" class="row g-3"></div>
+		</section>
+
+		<section id="actividades" aria-labelledby="titulo-actividades">
+			<h2 id="titulo-actividades" class="section-heading">Actividades prácticas</h2>
+			<div class="row g-4">
+				<div class="col-12 col-lg-6">
+					<div class="card p-3 h-100">
+						<div class="d-flex align-items-center mb-2">
+							<div class="icon-badge"><i class="bi bi-question-circle" aria-hidden="true"></i></div>
+							<h3 class="h5 m-0">Quiz de opción múltiple</h3>
+						</div>
+						<div id="quiz-container"></div>
+						<div class="d-flex align-items-center gap-2 mt-3">
+							<button id="btnCalificar" class="btn btn-primary btn-sm">Calificar</button>
+							<span id="quiz-score" class="fw-semibold" aria-live="polite"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-lg-6">
+					<div class="card p-3 h-100">
+						<div class="d-flex align-items-center mb-2">
+							<div class="icon-badge"><i class="bi bi-arrows-move" aria-hidden="true"></i></div>
+							<h3 class="h5 m-0">Arrastrar y soltar: Relaciona conceptos</h3>
+						</div>
+						<div class="row g-3">
+							<div class="col-12 col-md-6">
+								<div class="d-grid gap-2" id="drag-source"></div>
+							</div>
+							<div class="col-12 col-md-6">
+								<div class="droppable" id="drop-target" aria-label="Zona para soltar elementos"></div>
+							</div>
+						</div>
+						<div class="mt-3 d-flex gap-2">
+							<button id="btnVerificarDnD" class="btn btn-outline-primary btn-sm">Verificar</button>
+							<span id="resultado-dnd" aria-live="polite"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="card p-3">
+						<div class="d-flex align-items-center mb-2">
+							<div class="icon-badge"><i class="bi bi-input-cursor-text" aria-hidden="true"></i></div>
+							<h3 class="h5 m-0">Completar conceptos</h3>
+						</div>
+						<div id="fill-container" class="d-grid gap-2"></div>
+						<div class="mt-3 d-flex gap-2">
+							<button id="btnVerificarFill" class="btn btn-outline-success btn-sm">Comprobar</button>
+							<span id="resultado-fill" aria-live="polite"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="referencias" aria-labelledby="titulo-referencias">
+			<h2 id="titulo-referencias" class="section-heading">Referencias</h2>
+			<ul id="lista-referencias" class="list-group list-group-flush"></ul>
+		</section>
+	</main>
+	<footer class="border-top py-4 mt-4">
+		<div class="container small text-muted">
+			<div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+				<span>Guía de estudio generada dinámicamente.</span>
+				<span>Modo <span id="estado-tema-visual">claro</span> · <span class="btn-print-hide">Use el botón Exportar a PDF para guardar.</span></span>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Modal de Instrucciones (sin JS externo) -->
+	<div class="modal" id="modalInstrucciones" role="dialog" aria-modal="true" aria-labelledby="tituloModalInstrucciones" aria-hidden="true">
+		<div class="modal-backdrop" data-close-modal></div>
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModalInstrucciones">Instrucciones de uso</h5>
+					<button type="button" class="btn-close" aria-label="Cerrar" data-close-modal></button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Para cambiar el tema edite únicamente la variable <code>tema</code> en la primera línea del bloque <code>&lt;script&gt;</code> al final del documento y recargue la página.
+					</p>
+					<ol>
+						<li>Desplácese por las secciones con la barra de navegación o con el teclado.</li>
+						<li>Use el botón "Exportar a PDF" para guardar la guía. Recomendado: márgenes pequeños, escala 100%.</li>
+						<li>El contenido se genera desde <code>temasData[tema]</code>. Si el tema no existe, verá una plantilla editable.</li>
+					</ol>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-close-modal>Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+const tema = "Generalidades de la Internet y los sistemas web";
+		/*
+			NOTA: Edite solo la línea anterior para cambiar el tema.
+			El resto del código genera el contenido desde `temasData` y controla la interactividad.
+		*/
+
+		// Datos de ejemplo. Agregue más entradas siguiendo la misma estructura si desea más temas.
+		const temasData = {
+			"Generalidades de la Internet y los sistemas web": {
+				titulo: "Generalidades de la Internet y los sistemas web",
+				subtitulo: "Origen, conceptos clave y componentes fundamentales",
+				introduccion: "En esta guía se abordan los pilares de Internet y los sistemas web: su historia, protocolos, arquitectura cliente-servidor y el ecosistema que hace posible la Web moderna.",
+				objetivos: [
+					"Reconocer los componentes esenciales de Internet y su evolución.",
+					"Comprender la función de protocolos como HTTP, DNS y TCP/IP en la comunicación.",
+					"Distinguir la arquitectura cliente-servidor y patrones como REST en sistemas web."
+				],
+				contenido: [
+					{
+						icono: "globe2",
+						titulo: "Breve historia de Internet",
+						texto: [
+							"Internet surge de esfuerzos de investigación (ARPANET) y estándares abiertos que han permitido la interconexión global.",
+							"La adopción del protocolo TCP/IP y la propuesta de la World Wide Web impulsaron su expansión a escala planetaria."
+						],
+						imagenSVG: function(){ return `
+							<!-- SVG inline adicional en Contenido. Fuente: original del autor -->
+							<svg viewBox="0 0 620 120" width="100%" height="auto" aria-hidden="true">
+								<g fill="none" stroke="#0d6efd" stroke-width="2">
+									<path d="M10 60 C 60 10, 120 10, 170 60 S 280 110, 340 60 S 460 10, 510 60 S 560 110, 610 60" opacity=".6"/>
+									<circle cx="170" cy="60" r="8"/>
+									<circle cx="340" cy="60" r="8"/>
+									<circle cx="510" cy="60" r="8"/>
+								</g>
+							</svg>`; }
+					},
+					{
+						icono: "diagram-3",
+						titulo: "Arquitectura cliente-servidor y REST",
+						texto: [
+							"En la Web, los clientes envían solicitudes a servidores a través de HTTP. REST propone principios como recursos identificados por URI, representaciones y operaciones sin estado.",
+							"Las APIs modernas adoptan HTTPS, JSON y controles de caché, manteniendo interoperabilidad y escalabilidad."
+						]
+					},
+					{
+						icono: "hdd-network",
+						titulo: "Dominios, DNS y rutas de red",
+						texto: [
+							"El Sistema de Nombres de Dominio (DNS) traduce nombres legibles (como ejemplo.com) a direcciones IP.",
+							"El enrutamiento IP y el modelo TCP/IP permiten el intercambio confiable de datos de extremo a extremo."
+						]
+					}
+				],
+				quiz: {
+					preguntas: [
+						{ enunciado: "¿Qué protocolo se utiliza comúnmente para transferir páginas web?", opciones: ["FTP", "SMTP", "HTTP", "SSH"], correcta: 2 },
+						{ enunciado: "DNS sirve principalmente para...", opciones: ["Encriptar el tráfico", "Resolver nombres de dominio a IP", "Balancear carga", "Monitorear latencia"], correcta: 1 },
+						{ enunciado: "En REST, un recurso suele identificarse mediante...", opciones: ["Cookies", "URI/URL", "Headers de autenticación", "Direcciones MAC"], correcta: 1 }
+					]
+				},
+				dnd: {
+					pares: [
+						{ item: "HTTP", destino: "Protocolo de transferencia" },
+						{ item: "DNS", destino: "Resolución de nombres" },
+						{ item: "TCP", destino: "Transporte confiable" }
+					]
+				},
+				fill: {
+					frases: [
+						{ texto: "La Web utiliza el protocolo ____ para solicitar y entregar recursos.", respuesta: "HTTP" },
+						{ texto: "El sistema ____ traduce dominios a direcciones IP.", respuesta: "DNS" },
+						{ texto: "El modelo ____/IP organiza las capas de red.", respuesta: "TCP" }
+					]
+				},
+				referencias: [
+					{ titulo: "Fielding, R. T. (2000). Architectural Styles and the Design of Network-based Software Architectures. UCI.", url: "https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf", nota: "Repositorio universitario (UCI)." },
+					{ titulo: "RFC 7231: Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content.", url: "https://www.rfc-editor.org/rfc/rfc7231", nota: "IETF RFC (estándar técnico)." },
+					{ titulo: "Tim Berners-Lee (1989). Information Management: A Proposal (CERN).", url: "https://www.w3.org/History/1989/proposal.html", nota: "Documento histórico (CERN/W3C)." }
+					/* Si prefiere DOIs verificados, reemplace o agregue aquí enlaces con DOI. // TODO del usuario: Verificar DOIs si se agregan. */
+				]
+			}
+		};
+
+		// Si el tema no existe, plantilla editable
+		const plantillaTema = {
+			titulo: "Plantilla de tema (edite temasData)",
+			subtitulo: "Subtítulo del tema",
+			introduccion: "Descripción breve del tema. Reemplace este texto en temasData.",
+			objetivos: ["Objetivo 1", "Objetivo 2", "Objetivo 3"],
+			contenido: [
+				{ icono: "bookmark", titulo: "Subsección 1", texto: ["Párrafo 1.", "Párrafo 2."] },
+				{ icono: "bookmark", titulo: "Subsección 2", texto: ["Párrafo 1."] }
+			],
+			quiz: { preguntas: [ { enunciado: "Pregunta de ejemplo", opciones:["A","B","C","D"], correcta:0 } ] },
+			dnd: { pares: [ { item: "Concepto", destino: "Definición" } ] },
+			fill: { frases: [ { texto:"Texto con ____ para completar.", respuesta:"respuesta" } ] },
+			referencias: [ { titulo: "Ejemplo de referencia académica", url:"https://repositorio.universidad.edu/ejemplo", nota: "Reemplace por una referencia real." } ]
+		};
+
+		// Utilitarios
+		const $ = (sel, ctx=document) => ctx.querySelector(sel);
+		const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+		function aplicarTemaVisual(modo){
+			document.documentElement.setAttribute('data-theme', modo);
+			localStorage.setItem('modo-visual', modo);
+			$('#estado-tema-visual').textContent = modo === 'dark' ? 'oscuro' : 'claro';
+			$('#btnTema').setAttribute('aria-pressed', String(modo === 'dark'));
+		}
+
+		function alternarTema(){
+			const actual = document.documentElement.getAttribute('data-theme') || 'light';
+			aplicarTemaVisual(actual === 'light' ? 'dark' : 'light');
+		}
+
+		function crearElemento(tag, attrs={}, children=[]) {
+			const el = document.createElement(tag);
+			Object.entries(attrs).forEach(([k,v])=>{
+				if(k === 'class') el.className = v; else if(k.startsWith('on') && typeof v === 'function') el.addEventListener(k.substring(2), v); else if(k === 'html') el.innerHTML = v; else el.setAttribute(k,v);
+			});
+			children.forEach(ch => { if(typeof ch === 'string') el.appendChild(document.createTextNode(ch)); else if(ch) el.appendChild(ch); });
+			return el;
+		}
+
+		function renderizarTema(data){
+			$('#titulo-inicio').textContent = data.titulo;
+			$('#subtitulo-inicio').textContent = data.subtitulo;
+			$('#intro-inicio').textContent = data.introduccion;
+
+			// Objetivos
+			const contObj = $('#lista-objetivos'); contObj.innerHTML = '';
+			data.objetivos.forEach((obj,i)=>{
+				const li = crearElemento('div', {class:'col-12 col-md-6 col-xl-4'}, [
+					crearElemento('div', {class:'card h-100 p-3'}, [
+						crearElemento('div', {class:'d-flex align-items-center mb-2'}, [
+							crearElemento('div',{class:'icon-badge', 'aria-hidden':'true'}, [crearElemento('i',{class:'bi bi-check2-circle'})]),
+							crearElemento('h3',{class:'h6 m-0'}, [`Objetivo ${i+1}`])
+						]),
+						crearElemento('p',{class:'mb-0'}, [obj])
+					])
+				]);
+				contObj.appendChild(li);
+			});
+
+			// Contenido teórico
+			const contBloques = $('#bloques-contenido'); contBloques.innerHTML = '';
+			data.contenido.forEach((bloque)=>{
+				const card = crearElemento('div',{class:'col-12 col-lg-6'}, [
+					crearElemento('div',{class:'card h-100 p-3'}, [
+						crearElemento('div',{class:'d-flex align-items-center mb-2'}, [
+							crearElemento('div',{class:'icon-badge','aria-hidden':'true'}, [crearElemento('i',{class:`bi bi-${bloque.icono}`})]),
+							crearElemento('h3',{class:'h5 m-0'}, [bloque.titulo])
+						]),
+						...bloque.texto.map(t => crearElemento('p', {}, [t])),
+						bloque.imagenSVG ? crearElemento('div',{class:'mt-2', html: bloque.imagenSVG()}) : null
+					])
+				]);
+				contBloques.appendChild(card);
+			});
+		}
+
+		function renderizarReferencias(refs){
+			const lista = $('#lista-referencias'); lista.innerHTML = '';
+			refs.forEach(ref => {
+				const li = crearElemento('li', {class:'list-group-item bg-transparent'}, [
+					crearElemento('i',{class:'bi bi-link-45deg me-1','aria-hidden':'true'}),
+					crearElemento('a', {href: ref.url, target:'_blank', rel:'noopener noreferrer'}, [ref.titulo]),
+					ref.nota ? crearElemento('span',{class:'text-muted ms-2'}, [`(${ref.nota})`]) : null
+				]);
+				lista.appendChild(li);
+			});
+		}
+
+		// Quiz
+		function renderizarQuiz(quiz){
+			const cont = $('#quiz-container'); cont.innerHTML='';
+			quiz.preguntas.forEach((q, qi)=>{
+				const card = crearElemento('div',{class:'border rounded p-2 mb-2'}, [
+					crearElemento('p',{class:'mb-2 fw-semibold'}, [`${qi+1}. ${q.enunciado}`]),
+					...q.opciones.map((op, oi)=>{
+						const id = `q${qi}_o${oi}`;
+						return crearElemento('div',{class:'form-check'}, [
+							crearElemento('input',{class:'form-check-input', type:'radio', name:`q${qi}`, id, value:String(oi)}),
+							crearElemento('label',{class:'form-check-label', for:id}, [op])
+						]);
+					}),
+					crearElemento('div',{class:'mt-1 small', id:`fb-q${qi}`, 'aria-live':'polite'})
+				]);
+				cont.appendChild(card);
+			});
+			$('#btnCalificar').onclick = () => {
+				let correctas = 0;
+				quiz.preguntas.forEach((q, qi)=>{
+					const sel = $(`input[name="q${qi}"]:checked`);
+					const fb = $(`#fb-q${qi}`);
+					if(!sel){ fb.textContent = 'Seleccione una opción.'; fb.className='mt-1 small text-warning'; return; }
+					const idx = Number(sel.value);
+					if(idx === q.correcta){ correctas++; fb.textContent = 'Correcto'; fb.className='mt-1 small text-success'; }
+					else { fb.textContent = `Incorrecto. Respuesta: ${q.opciones[q.correcta]}`; fb.className='mt-1 small text-danger'; }
+				});
+				$('#quiz-score').textContent = `Resultado: ${correctas} / ${quiz.preguntas.length}`;
+			};
+		}
+
+		// Drag and Drop
+		function renderizarDnD(cfg){
+			const src = $('#drag-source'); src.innerHTML='';
+			const dst = $('#drop-target'); dst.innerHTML=''; dst.classList.remove('drop-ok','drop-bad');
+			// Destinos vacíos
+			cfg.pares.forEach(p => {
+				const zone = crearElemento('div',{class:'border rounded p-2 mb-2 bg-white text-dark'}, [
+					crearElemento('div',{class:'small text-muted mb-1'}, [p.destino]),
+					crearElemento('div',{class:'droppable', 'data-destino': p.destino})
+				]);
+				dst.appendChild(zone);
+			});
+			// Fuentes arrastrables
+			cfg.pares
+				.map(p => p.item)
+				.sort(() => Math.random()-0.5)
+				.forEach(item => {
+					const el = crearElemento('button',{class:'btn btn-outline-secondary draggable', draggable:'true', type:'button'}, [item]);
+					el.addEventListener('dragstart', ev => {
+						ev.dataTransfer.setData('text/plain', item);
+						ev.dataTransfer.effectAllowed = 'move';
+					});
+					src.appendChild(el);
+				});
+			$$('.droppable', dst).forEach(zone => {
+				zone.addEventListener('dragover', ev => { ev.preventDefault(); ev.dataTransfer.dropEffect='move'; });
+				zone.addEventListener('drop', ev => {
+					ev.preventDefault();
+					const item = ev.dataTransfer.getData('text/plain');
+					zone.textContent = item;
+					zone.setAttribute('data-item', item);
+				});
+			});
+			$('#btnVerificarDnD').onclick = () => {
+				let aciertos = 0;
+				$$('.droppable', dst).forEach(zone => {
+					const i = zone.getAttribute('data-item');
+					const d = zone.getAttribute('data-destino');
+					const ok = cfg.pares.some(p => p.item===i && p.destino===d);
+					zone.classList.remove('drop-ok','drop-bad');
+					zone.classList.add(ok ? 'drop-ok' : 'drop-bad');
+					if(ok) aciertos++;
+				});
+				$('#resultado-dnd').textContent = `Aciertos: ${aciertos} / ${cfg.pares.length}`;
+			};
+		}
+
+		// Completar
+		function renderizarFill(cfg){
+			const cont = $('#fill-container'); cont.innerHTML = '';
+			cfg.frases.forEach((f, i) => {
+				const linea = crearElemento('div',{class:'input-group'}, [
+					crearElemento('span',{class:'input-group-text'}, [`${i+1}`]),
+					crearElemento('span',{class:'form-control bg-transparent'}, [f.texto.replace('____','')]),
+					crearElemento('input',{class:'form-control', type:'text', placeholder:'Completar...', 'data-respuesta': f.respuesta.toLowerCase()})
+				]);
+				cont.appendChild(linea);
+			});
+			$('#btnVerificarFill').onclick = () => {
+				let ok=0, total=0;
+				$$('#fill-container input').forEach(inp => {
+					total++;
+					const val = inp.value.trim().toLowerCase();
+					const ans = inp.getAttribute('data-respuesta');
+					if(val === ans){ ok++; inp.classList.remove('is-invalid'); inp.classList.add('is-valid'); }
+					else { inp.classList.remove('is-valid'); inp.classList.add('is-invalid'); }
+				});
+				$('#resultado-fill').textContent = `Resultado: ${ok} / ${total}`;
+			};
+		}
+
+		function renderizarPlantilla(){
+			renderizarTema(plantillaTema);
+			renderizarQuiz(plantillaTema.quiz);
+			renderizarDnD(plantillaTema.dnd);
+			renderizarFill(plantillaTema.fill);
+			renderizarReferencias(plantillaTema.referencias);
+			const aviso = crearElemento('div',{class:'alert alert-warning mt-3', role:'status'}, [
+				"El tema especificado no existe en temasData. Edite el objeto 'temasData' para agregar el contenido y luego cambie la variable 'tema'."
+			]);
+			$('#inicio').appendChild(aviso);
+		}
+
+		function inicializarNavegacion(){
+			// Simular colapso en móvil (sin JS de Bootstrap)
+			const toggler = $('.navbar-toggler');
+			const menu = $('#navbarSupportedContent');
+			toggler?.addEventListener('click', () => {
+				menu.classList.toggle('show');
+			});
+			$$('.nav-link', menu).forEach(a => a.addEventListener('click', ()=> menu.classList.remove('show')));
+		}
+
+		function inicializarModalBasico(){
+			const modal = $('#modalInstrucciones');
+			const openBtn = $('#btnInstrucciones');
+			const closeEls = $$('[data-close-modal]', modal);
+			function open(){ modal.classList.add('show'); modal.removeAttribute('aria-hidden'); modal.querySelector('.modal-content').focus(); }
+			function close(){ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); }
+			openBtn.addEventListener('click', open);
+			closeEls.forEach(el => el.addEventListener('click', close));
+			document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('show')) close(); });
+		}
+
+		function inicializarAccesos(){
+			$('#btnTema').addEventListener('click', alternarTema);
+			$('#btnPDF').addEventListener('click', () => {
+				alert('Sugerencia para PDF:\n- Márgenes: pequeños\n- Escala: 100%\n- Encabezado/pie de página: desactivados');
+				window.print();
+			});
+		}
+
+		// Init
+		(function(){
+			// Modo visual
+			const pref = localStorage.getItem('modo-visual') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+			aplicarTemaVisual(pref);
+			// Navegación, modal e interacciones
+			inicializarNavegacion();
+			inicializarModalBasico();
+			inicializarAccesos();
+
+			const data = temasData[tema];
+			if(data){
+				renderizarTema(data);
+				renderizarQuiz(data.quiz);
+				renderizarDnD(data.dnd);
+				renderizarFill(data.fill);
+				renderizarReferencias(data.referencias);
+			} else {
+				renderizarPlantilla();
+			}
+		})();
+	</script>
+</body>
+</html> 

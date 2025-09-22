@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guía de estudio</title>
+
+  <!-- Bootstrap 5 CSS (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Font Awesome (CDN) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- AOS (opcional para animaciones on-scroll) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --accent:#0d6efd;
+      --muted:#6c757d;
+      --glass: rgba(255,255,255,0.6);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1220;
+      --card:#0f1724;
+      --accent:#66b2ff;
+      --muted:#9aa6b2;
+      --glass: rgba(255,255,255,0.04);
+      color: #e6eef8;
+    }
+
+    html,body{
+      height:100%;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(13,110,253,0.06), transparent),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(99,102,241,0.03), transparent);
+      background-color:var(--bg);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    .navbar-brand .logo{
+      width:40px; height:40px; border-radius:8px; display:inline-flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg,var(--accent), #8b5cf6); color:white; font-weight:700;
+      box-shadow: 0 6px 18px rgba(13,110,253,0.12);
+    }
+
+    main { padding-top:90px; padding-bottom:40px; }
+
+    section { padding:40px 0; }
+    .hero{
+      padding:36px;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.6), var(--glass));
+      box-shadow: 0 6px 30px rgba(12,18,28,0.06);
+    }
+
+    .svg-illu { width:100%; max-width:540px; height:auto; display:block; margin:auto; }
+
+    .card-glass{
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.55));
+      border: none; border-radius:12px;
+      box-shadow: 0 8px 30px rgba(12,18,28,0.06);
+    }
+
+    .dark .card-glass{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); }
+
+    footer{ padding:28px 0; color:var(--muted); }
+
+    /* Responsive tweaks */
+    @media (max-width:767px){
+      .hero{ padding:20px; }
+      .navbar .nav-link{ padding:0.5rem .6rem; }
+    }
+
+    /* Small utilities */
+    .muted { color:var(--muted); }
+    .pointer { cursor:pointer; }
+    .quiz-answer { margin-bottom:8px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-light bg-transparent">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <div class="logo"><i class="fa-solid fa-brain"></i></div>
+        <div>
+          <div id="navTemaTitle" style="font-weight:600;"></div>
+          <small id="navTemaSub" class="muted" style="font-size:12px;"></small>
+        </div>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#objetivos">Objetivos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contenido">Contenido</a></li>
+          <li class="nav-item"><a class="nav-link" href="#actividades">Actividades</a></li>
+          <li class="nav-item"><a class="nav-link" href="#referencias">Referencias</a></li>
+          <li class="nav-item ms-3">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="toggleTheme">
+              <label class="form-check-label muted" for="toggleTheme">Modo oscuro</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- INICIO / PRESENTACIÓN -->
+    <section id="inicio" data-aos="fade-up">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="hero card-glass p-4">
+            <h1 id="tituloPrincipal" class="mb-2"></h1>
+            <p id="subtitulo" class="muted mb-3"></p>
+
+            <p id="presentacion" class="mb-4"></p>
+
+            <div class="d-flex gap-2">
+              <a class="btn btn-primary" href="#contenido">Ir al contenido</a>
+              <button class="btn btn-outline-secondary" id="btnModalSyllabus" data-bs-toggle="modal" data-bs-target="#modalSyllabus">
+                <i class="fa-solid fa-file-lines me-2"></i>Ver sílabo
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 text-center">
+          <!-- Inline SVG ilustrativa (auto-contenida, libre para uso) -->
+          <svg class="svg-illu" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de redes e internet">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#0d6efd"/>
+                <stop offset="1" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+            <rect rx="24" width="800" height="520" fill="url(#g1)" opacity="0.06"/>
+            <!-- nodes -->
+            <g fill="#fff" opacity="0.9">
+              <circle cx="130" cy="120" r="28" fill="#fff" opacity="0.12"/ >
+              <circle cx="230" cy="200" r="18" fill="#fff" opacity="0.18"/>
+              <circle cx="420" cy="100" r="30" fill="#fff" opacity="0.14"/>
+              <circle cx="600" cy="220" r="20" fill="#fff" opacity="0.16"/>
+              <circle cx="520" cy="360" r="26" fill="#fff" opacity="0.11"/>
+              <circle cx="280" cy="360" r="22" fill="#fff" opacity="0.14"/>
+            </g>
+            <!-- connections -->
+            <g stroke="#0d6efd" stroke-opacity="0.18" stroke-width="2" fill="none">
+              <path d="M158 120 Q200 150 230 200"/>
+              <path d="M230 200 Q330 150 420 100"/>
+              <path d="M420 100 Q520 160 600 220"/>
+              <path d="M420 100 Q360 220 280 360"/>
+              <path d="M280 360 Q420 350 520 360"/>
+            </g>
+            <!-- center device -->
+            <g transform="translate(360,180)">
+              <rect x="-80" y="-60" width="160" height="120" rx="12" fill="#fff" opacity="0.96" />
+              <rect x="-68" y="-48" width="136" height="96" rx="8" fill="url(#g1)" opacity="0.12"/>
+              <circle cx="46" cy="44" r="6" fill="#fff"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBJETIVOS -->
+    <section id="objetivos" data-aos="fade-up">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2>Objetivos de aprendizaje</h2>
+          <p class="muted">Metas claras y medibles que se actualizan automáticamente según el tema.</p>
+
+          <ul id="listaObjetivos" class="list-group list-group-flush mt-3">
+            <!-- items insertados por JS -->
+          </ul>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card card-glass p-3">
+            <h5 class="mb-2">Datos rápidos</h5>
+            <p class="small muted mb-1"><strong>Duración estimada:</strong> <span id="duracion"></span></p>
+            <p class="small muted mb-1"><strong>Nivel:</strong> <span id="nivel"></span></p>
+            <p class="small muted"><strong>Metodología:</strong> Aprendizaje activo — teoría + práctica</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENIDO TEÓRICO -->
+    <section id="contenido" data-aos="fade-up">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2>Contenido teórico</h2>
+          <p class="muted" id="introContenido"></p>
+
+          <div class="row g-3 mt-3">
+            <div class="col-md-6">
+              <div class="card card-glass p-3">
+                <h5><i class="fa-solid fa-network-wired me-2"></i> Conceptos clave</h5>
+                <ul id="conceptsList" class="mb-0">
+                  <!-- JS -->
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card card-glass p-3">
+                <h5><i class="fa-solid fa-layer-group me-2"></i> Arquitectura / Capas</h5>
+                <p id="capasIntro" class="mb-1 muted"></p>
+                <ul id="capasList"></ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card card-glass p-3">
+            <h6>Ilustración y explicación</h6>
+            <p class="small muted" id="imgCaption"></p>
+            <!-- imagen inline (SVG) -->
+            <div class="mt-2">
+              <svg viewBox="0 0 300 180" width="100%" height="auto" aria-hidden="true">
+                <rect rx="12" width="300" height="180" fill="white" opacity="0.06"/>
+                <g fill="none" stroke="#0d6efd" stroke-width="2">
+                  <path d="M40 140 L120 100 L200 140" stroke-linecap="round"/>
+                  <rect x="50" y="30" width="60" height="40" rx="6" fill="#fff" opacity="0.06"/>
+                  <rect x="170" y="30" width="60" height="40" rx="6" fill="#fff" opacity="0.06"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section id="actividades" data-aos="fade-up">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2>Actividades prácticas</h2>
+          <p class="muted">Realiza las actividades y comprueba tu aprendizaje con los quizzes interactivos.</p>
+
+          <div class="card card-glass p-3 mb-3">
+            <h5 class="mb-2"><i class="fa-solid fa-check-circle me-2"></i> Actividad 1 — Preguntas rápidas (quiz)</h5>
+            <div id="quizArea">
+              <!-- Quiz dinámico -->
+            </div>
+          </div>
+
+          <div class="card card-glass p-3">
+            <h5 class="mb-2"><i class="fa-solid fa-code me-2"></i> Actividad 2 — Mini proyecto</h5>
+            <p>Diseña un mapa mental o esquema que relacione los conceptos clave y comparte capturas en clase. Sugerencia: usa herramientas gratuitas como diagrams.net.</p>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card card-glass p-3">
+            <h6>Auto-evaluación</h6>
+            <p class="small muted">Al finalizar el quiz obtendrás retroalimentación y una recomendación de estudio.</p>
+            <div id="quizResult" class="mt-2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERENCIAS -->
+    <section id="referencias" data-aos="fade-up" class="pt-4">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2>Referencias académicas y enlaces verificados</h2>
+          <p class="muted mb-3">Lista mínima de 3 fuentes académicas y/o institucionales relevantes al tema (al cambiar <code>tema</code> se actualizan los textos, pero estas referencias básicas permanecen como núcleo académico).</p>
+
+          <ul id="refsList" class="list-group list-group-flush">
+            <!-- JS insertará referencias con links reales -->
+          </ul>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="muted">Guía generada dinámicamente — editar <code>const tema</code> en la primera línea del script para actualizar todo.</small>
+      <div>
+        <button class="btn btn-sm btn-outline-secondary me-2" id="btnTop"><i class="fa-solid fa-arrow-up"></i> Arriba</button>
+        <span class="muted">· Hecho con ❤️</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Sílabus -->
+  <div class="modal fade" id="modalSyllabus" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content card-glass p-3">
+        <div class="modal-header border-0">
+          <h5 class="modal-title">Síntesis del sílabo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p id="syllabusText"></p>
+          <ul id="syllabusPoints"></ul>
+        </div>
+        <div class="modal-footer border-0">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap & dependencies (from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <!-- ======= VARIABLE PRINCIPAL (editar SOLO esta línea) ======= -->
+  <script>
+    // ======= Cambiar SOLO la variable 'tema' para actualizar la guía completa =======
+    const tema = "Generalidades de la Internet y los sistemas web";
+    // ===============================================================
+  </script>
+
+  <!-- SCRIPT PRINCIPAL: todo el comportamiento dinámico está aquí -->
+  <script>
+    // Datos base por tema: Si se quisiera ampliar, añadir mapeos por tema.
+    // Pero la idea es que con 'tema' se construyan textos genéricos adaptados automáticamente.
+    (function(){
+      // Utility: safe text setter
+      const setText = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
+
+      // Títulos y subtítulos
+      setText('tituloPrincipal', tema);
+      setText('navTemaTitle', tema);
+      setText('navTemaSub', 'Guía de estudio dinámica');
+
+      // Presentación / intro breve
+      const presentacionText = `${tema} — esta guía presenta conceptos clave, objetivos, actividades prácticas y referencias para estudiar de forma autónoma y en clases. Está diseñada para adaptarse cambiando una sola variable: 'tema'.`;
+      setText('presentacion', presentacionText);
+
+      // Objetivos (generados automáticamente, adaptables)
+      const objetivos = [
+        `Comprender los conceptos fundamentales de ${tema}.`,
+        `Identificar y describir los componentes principales relacionados con ${tema}.`,
+        `Aplicar conocimientos de ${tema} en actividades prácticas y ejercicios interactivos.`,
+        `Evaluar fuentes académicas y citar referencias relevantes para ${tema}.`
+      ];
+      const listaObjetivos = document.getElementById('listaObjetivos');
+      objetivos.forEach((o,i) => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.innerHTML = `<i class="fa-solid fa-bullseye me-2 text-primary"></i><strong>Objetivo ${i+1}.</strong> ${o}`;
+        listaObjetivos.appendChild(li);
+      });
+
+      // Datos rápidos
+      setText('duracion', '4 horas (sugeridas, modular)');
+      setText('nivel', 'Introductorio — Intermedio');
+
+      // Contenido teórico
+      setText('introContenido', `A continuación se despliegan los conceptos, capas y ejemplos centrales relacionados con ${tema}. Usa las actividades para reforzar lo aprendido.`);
+
+      const conceptos = [
+        `Definición y evolución histórica de ${tema}.`,
+        `Componentes y protocolos relevantes (ej. protocolos de red, servicios web).`,
+        `Modelos de arquitectura y buenas prácticas.`,
+        `Seguridad básica y consideraciones éticas.`
+      ];
+      const conceptsList = document.getElementById('conceptsList');
+      conceptos.forEach(c => {
+        const li = document.createElement('li');
+        li.innerHTML = `<i class="fa-solid fa-circle-dot me-2 text-secondary"></i>${c}`;
+        conceptsList.appendChild(li);
+      });
+
+      // Capas / arquitectura (ejemplo genérico)
+      const capas = [
+        'Capa física / Infraestructura: hardware, conectividad.',
+        'Capa de red y transporte: routing, TCP/UDP.',
+        'Capa de aplicación: HTTP, servicios web, APIs.',
+      ];
+      setText('capasIntro', 'Modelo por capas simplificado para entender responsabilidades.');
+      const capasList = document.getElementById('capasList');
+      capas.forEach(c => {
+        const li = document.createElement('li'); li.textContent = c; capasList.appendChild(li);
+      });
+      setText('imgCaption','Ilustración conceptual integrada (SVG) — libre y auto-contenida.');
+
+      // Syllabus modal
+      setText('syllabusText', `Resumen del sílabo para "${tema}". Este sílabo es un patrón que puede adaptarse en horas/clases.`);
+      const syllabusPoints = document.getElementById('syllabusPoints');
+      const syllabus = [
+        'Sesión 1: Introducción y evolución histórica (lectura y discusión).',
+        'Sesión 2: Conceptos técnicos y arquitecturas (clase magistral + preguntas).',
+        'Sesión 3: Actividades prácticas y mini-proyecto.',
+        'Sesión 4: Evaluación y referencias.'
+      ];
+      syllabus.forEach(s => {
+        const li = document.createElement('li'); li.textContent = s; syllabusPoints.appendChild(li);
+      });
+
+      // REFERENCIAS (verificadas). Se mantienen como núcleos académicos.
+      // Aquí incluimos enlaces reales a trabajos fundamentales sobre Internet / Web / Arquitectura.
+      const refs = [
+        {
+          title: 'A Brief History of the Internet — Leiner et al. (SIGCOMM CCR, 2009)',
+          href: 'https://doi.org/10.1145/1629607.1629613',
+          note: 'Artículo histórico y técnico (revisión por expertos).'
+        },
+        {
+          title: 'WorldWideWeb: Proposal for a HyperText Project — Tim Berners-Lee (CERN, 1989/1990)',
+          href: 'https://www.w3.org/History/1989/proposal.html',
+          note: 'Propuesta original que dio lugar a la World Wide Web.'
+        },
+        {
+          title: 'REST: Architectural Styles and the Design of Network-based Software Architectures — Roy Fielding (Dissertation, 2000)',
+          href: 'https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm',
+          note: 'Documento de referencia sobre arquitectura REST, fundamental para servicios web.'
+        }
+      ];
+      const refsList = document.getElementById('refsList');
+      refs.forEach(r => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.innerHTML = `<i class="fa-solid fa-book-open me-2 text-success"></i>
+                        <a href="${r.href}" target="_blank" rel="noopener noreferrer">${r.title}</a>
+                        <div class="small muted">${r.note}</div>`;
+        refsList.appendChild(li);
+      });
+
+      // QUIZ (actividad interactiva simple)
+      const quizQuestions = [
+        {
+          q: `¿Cuál es el objetivo principal de estudiar "${tema}"?`,
+          options: [
+            'Aprender a usar redes sociales solamente.',
+            'Comprender conceptos, arquitectura y aplicaciones relevantes.',
+            'Reemplazar formación formal por memes.'
+          ],
+          a: 1
+        },
+        {
+          q: `¿Cuál de las siguientes es una capa típica en las arquitecturas relacionadas con ${tema}?`,
+          options: ['Capa de hielo', 'Capa de aplicación', 'Capa de magia'],
+          a: 1
+        }
+      ];
+
+      // Build quiz UI
+      const quizArea = document.getElementById('quizArea');
+      quizQuestions.forEach((qq, idx) => {
+        const card = document.createElement('div');
+        card.className = 'mb-3';
+        card.innerHTML = `
+          <div class="card card-glass p-3">
+            <h6>Pregunta ${idx+1}</h6>
+            <p class="mb-2">${qq.q}</p>
+            <div id="answers-${idx}"></div>
+            <div class="mt-2"><button class="btn btn-sm btn-primary" id="check-${idx}">Verificar</button></div>
+            <div class="mt-2" id="feedback-${idx}"></div>
+          </div>
+        `;
+        quizArea.appendChild(card);
+
+        const answersDiv = card.querySelector(`#answers-${idx}`);
+        qq.options.forEach((opt,i) => {
+          const id = `q${idx}o${i}`;
+          const wrapper = document.createElement('div');
+          wrapper.className = 'form-check quiz-answer';
+          wrapper.innerHTML = `<input class="form-check-input" type="radio" name="q${idx}" id="${id}" value="${i}">
+            <label class="form-check-label" for="${id}">${opt}</label>`;
+          answersDiv.appendChild(wrapper);
+        });
+
+        document.addEventListener('click', function(e){
+          if(e.target && e.target.id === `check-${idx}`){
+            const chosen = card.querySelector(`input[name="q${idx}"]:checked`);
+            const feedback = card.querySelector(`#feedback-${idx}`);
+            if(!chosen){ feedback.innerHTML = `<div class="text-warning">Selecciona una opción antes de verificar.</div>`; return; }
+            const val = parseInt(chosen.value,10);
+            if(val === qq.a){
+              feedback.innerHTML = `<div class="text-success"><i class="fa-solid fa-circle-check me-2"></i>Correcto. Buen trabajo.</div>`;
+            } else {
+              feedback.innerHTML = `<div class="text-danger"><i class="fa-solid fa-xmark me-2"></i>Incorrecto. Revisa los conceptos clave.</div>`;
+            }
+            updateResultSummary();
+          }
+        });
+      });
+
+      // Quiz summary
+      const quizResult = document.getElementById('quizResult');
+      function updateResultSummary(){
+        const total = quizQuestions.length;
+        let correct = 0;
+        quizQuestions.forEach((qq, idx) => {
+          const chosen = document.querySelector(`input[name="q${idx}"]:checked`);
+          if(chosen && parseInt(chosen.value,10) === qq.a) correct++;
+        });
+        quizResult.innerHTML = `<div><strong>Resultado:</strong> ${correct}/${total} correctas.</div>
+                                <div class="small muted">Puntaje provisional — usa como guía para repasar.</div>`;
+      }
+
+      // TOP button
+      document.getElementById('btnTop').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+      // Theme toggle (light/dark)
+      const toggle = document.getElementById('toggleTheme');
+      function applyTheme(dark){
+        if(dark){
+          document.documentElement.setAttribute('data-theme','dark');
+          document.body.classList.add('dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+          document.body.classList.remove('dark');
+        }
+      }
+      toggle.addEventListener('change', (e)=> applyTheme(e.target.checked));
+      // read prefers-color-scheme
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(prefersDark);
+      toggle.checked = prefersDark;
+
+      // Init AOS animations if available
+      if(window.AOS) AOS.init({ once:true, duration:700 });
+
+      // Tooltips (Bootstrap)
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(function (el) { return new bootstrap.Tooltip(el); });
+
+      // Smooth anchor scrolling adjustment for fixed navbar
+      document.querySelectorAll('a.nav-link').forEach(a=>{
+        a.addEventListener('click',(ev)=>{
+          // default behavior is smooth due to CSS; ensure offset for fixed navbar
+          ev.preventDefault();
+          const href = a.getAttribute('href');
+          if(href && href.startsWith('#')){
+            const target = document.querySelector(href);
+            if(target){
+              const offset = 80;
+              const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+              window.scrollTo({ top, behavior: 'smooth' });
+            }
+          }
+        });
+      });
+
+      // Accessibility: focus management for modal open
+      const modalSyllabus = document.getElementById('modalSyllabus');
+      modalSyllabus && modalSyllabus.addEventListener('shown.bs.modal', ()=>{
+        modalSyllabus.querySelector('.modal-body').focus();
+      });
+
+      // Final: small console message
+      console.info(`Guía de estudio cargada para: ${tema}`);
+    })();
+  </script>
+</body>
+</html>
