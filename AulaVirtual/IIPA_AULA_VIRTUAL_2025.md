@@ -9,7 +9,7 @@ Requisitos funcionales y estructurales
 Primera líneas del <body>/<script>: declara exactamente esta variable editable como primer elemento del script:
 
 <script>
-const tema = "Generalidades de la Internet y los sistemas web";
+const tema = "Internet y la Web";
 </script>
 
 

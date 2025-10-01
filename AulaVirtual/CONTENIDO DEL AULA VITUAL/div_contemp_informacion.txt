@@ -1,0 +1,35 @@
+Genera un bloque HTML completamente contenido dentro de un solo <div> que sirva como **página educativa interactiva para estudiantes** sobre el tema: "Conceptualización de Multimedia". 
+
+Requisitos:
+
+1. **Estructura:**
+   - Todo debe estar dentro de un solo <div> contenedor.
+   - No usar etiquetas <html>, <head> ni <body>.
+   - Incluir secciones: introducción, conceptos, ejemplos prácticos, comparaciones con el mundo real, enlaces de referencia, y un cuestionario final.
+
+2. **Estilo:**
+   - Todo CSS debe ir dentro de **atributos `style` en línea**, o dentro de un `<style>` al inicio del div si se desea para organizar mejor.
+   - Diseño atractivo para estudiantes: colores llamativos pero legibles, bordes redondeados, sombras, tipografía clara, espaciado suficiente.
+   - Incluir efectos: hover en botones y enlaces, transiciones suaves, resaltado de secciones importantes, imágenes con sombra y bordes redondeados.
+
+3. **Contenido informativo:**
+   - Explicar **qué es multimedia**, tipos de multimedia (texto, imagen, audio, video, animación, interactividad).
+   - Explicar **principios de conceptualización de multimedia**: integración de medios, coherencia visual, narrativa, interactividad.
+   - Incluir **ejemplos prácticos**: cómo se usan en educación, publicidad, entretenimiento.
+   - Incluir **comparaciones con el mundo real**: por ejemplo, un libro vs un video educativo vs una aplicación interactiva.
+   - Agregar **enlaces reales y actuales** de donde se obtuvo la información (artículos, libros, sitios web oficiales).
+
+4. **Componentes interactivos:**
+   - Imágenes con bordes y sombras.
+   - Botones para enlaces externos.
+   - Listas y tablas con información clara.
+   - Al final, un **cuestionario de opción múltiple (5-6 preguntas)** con letras A), B), C), D) y la respuesta correcta indicada.
+
+5. **Requisitos técnicos:**
+   - Que se pueda copiar y pegar directamente en cualquier editor que soporte HTML y se vea funcional.
+   - Responsive: el contenido debe adaptarse a diferentes tamaños de pantalla.
+   - Todo CSS debe ir dentro del div; no debe requerir archivos externos.
+
+6. **Extras opcionales:**
+   - Puedes incluir un pequeño banner o encabezado llamativo.
+   - Incluir iconos o emojis para resaltar secciones si es apropiado.

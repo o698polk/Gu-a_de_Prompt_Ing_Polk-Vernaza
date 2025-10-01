@@ -1,4 +1,5 @@
-# Guia_de_Prompt_Ing_Polk_Vernaza_Istae
+# Guia\_de\_Prompt\_Ing\_Polk\_Vernaza\_Istae
+
 Este repositorio recopila y organiza una serie de prompts optimizados para distintas aplicaciones de inteligencia artificial (ChatGPT, Cursor, Copilot, entre otros).
 Su objetivo es servir como referencia práctica para estudiantes, desarrolladores, docentes y creadores de contenido que deseen:
 
@@ -27,3 +28,4 @@ Envía un pull request con tu mejora o nuevo prompt.
 Licencia
 
 Este proyecto se distribuye bajo la licencia MIT, por lo que puedes usarlo, adaptarlo y compartirlo libremente, citando la autoría.
+

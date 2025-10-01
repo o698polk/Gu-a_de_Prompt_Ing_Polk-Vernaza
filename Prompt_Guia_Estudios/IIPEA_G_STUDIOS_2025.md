@@ -172,6 +172,24 @@ C. Tabla de verificación de enlaces
 • 	[ ] Parafraseo original, sin plagio.
 • 	[ ] Límites de cita textual respetados.
 
+**************************************************************************DESCRIPCION DE LA UNIDAD*******************************************************
+
+
+Quiero que generes una descripción académica clara, completa y general de una unidad de estudio. 
+Para ello, investiga y redacta en base a las siguientes dos variables:
+
+- Nombre de la materia: {materia}
+- Tema de la unidad: {tema_unidad}
+
+La descripción debe:  
+1. Explicar la relevancia del tema dentro de la materia.  
+2. Mencionar los principales conceptos, teorías, metodologías o tecnologías vinculadas al tema.  
+3. Indicar cómo este conocimiento prepara a los estudiantes para aplicar lo aprendido en contextos reales o profesionales.  
+4. Mantener un tono formal y académico, sin ser demasiado técnico.  
+
+Genera el texto en un solo párrafo de entre 120 y 160 palabras.
+
+
  
 
 
