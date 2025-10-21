@@ -9,7 +9,7 @@ Requisitos funcionales y estructurales
 Primera líneas del <body>/<script>: declara exactamente esta variable editable como primer elemento del script:
 
 <script>
-const tema = "Internet y la Web";
+const tema = "Sitio Web vs. Aplicación Web";
 </script>
 
 
@@ -105,9 +105,9 @@ Si por tamaño/limitación alguna imagen no puede ser embebida, deja un comentar
 
 Nota final para el generador: Prioriza que el archivo sea inmediato y plug-and-play: el usuario debería descargarlo, abrirlo en un navegador y ver una guía completa funcionando. El único cambio que debe hacer para adaptar la guía a otro tema es editar la variable tema al inicio y recargar la página.
 
-*<h2 style="Color:red;">EVALUACIONES-CHATGPT 5 </h2>*
+*<h2 style="Color:red;">CLAUD </h2>*
 
-
+Genera con html, css y javascript usan bootstrap una guia moderna y responsive del siguiente tema:Sitio Web vs. Aplicación Web con bibliografias y link de referencias de cada infromacion, debe tener una seccion de maro teorico informacion teorica con fuente confiables, seccion de ejemplos reales, secciones de comparaciones y caracteristicas, mucha informacion y referencias
 
 *<h2 style="Color:red;">TRABAJOS EN CLASES-CHATGPT 5 </h2>*
 
@@ -133,6 +133,10 @@ Excluye blogs, wikis, páginas sin revisión académica o enlaces caídos.
 Incluye al menos \[número de referencias deseado, ej. 8] referencias de calidad.”
 
 
+<iframe id="resourceobject" src="http://eva.istae.edu.ec/pluginfile.php/11105/mod_resource/content/1/guia-estudio.html?embed=1" style="width: 563px; height: 400px;">
+    Haga clic en <a href="http://eva.istae.edu.ec/pluginfile.php/11105/mod_resource/content/1/guia-estudio.html" >guia-estudio.html</a> para ver el archivo.
+  </iframe>
 
 
-
+Tu historial de chat
+}
